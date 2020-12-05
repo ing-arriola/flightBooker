@@ -5,7 +5,7 @@ const InputDate = ({
   flightDate,
   setFlight,
   fieldState,
-
+  name,
   areDatesMakesSense,
 }) => {
   const [validDate, setValidDate] = useState(true);
@@ -14,7 +14,7 @@ const InputDate = ({
 
     isValidDate(e.target.value);
 
-    areDatesMakesSense(e.target.value);
+    areDatesMakesSense(e.target.value, name);
   };
 
   const isValidDate = (date) => {

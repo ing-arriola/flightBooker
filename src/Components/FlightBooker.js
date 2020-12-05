@@ -38,13 +38,31 @@ const FlightBooker = () => {
     }
   };
 
-  const areDatesMakesSense = (data) => {
+  const areDatesMakesSense = (data, name) => {
     if (title === options[1]) {
-      if (data >= returnDate) {
-        setSubmit(false);
+      if (name === "start") {
+        if (data <= returnDate) {
+          setSubmit(false);
+        } else {
+          setSubmit(true);
+        }
       } else {
-        setSubmit(true);
+        if (data >= oneWayDate) {
+          setSubmit(false);
+        } else {
+          setSubmit(true);
+        }
       }
+    }
+  };
+
+  const showTripInfo = () => {
+    if (title === options[0]) {
+      alert(`Your trip starts on ${oneWayDate}`);
+    } else {
+      alert(
+        `Your trip starts on ${oneWayDate} and you're going to return on ${returnDate} `
+      );
     }
   };
 
@@ -61,18 +79,20 @@ const FlightBooker = () => {
       </DropdownButton>
       <div className="d-flex flex-column">
         <InputDate
+          name="start"
           flightDate={oneWayDate}
           setFlight={setOneWayDate}
           fieldState={enableFields[0]}
           areDatesMakesSense={areDatesMakesSense}
         />
         <InputDate
+          name="return"
           flightDate={returnDate}
           setFlight={setReturnDate}
           fieldState={enableFields[1]}
           areDatesMakesSense={areDatesMakesSense}
         />
-        <Button disabled={submit} className="btn-block">
+        <Button disabled={submit} onClick={showTripInfo} className="btn-block">
           Book
         </Button>
       </div>
